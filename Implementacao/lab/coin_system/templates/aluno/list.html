@@ -1,0 +1,34 @@
+{% extends "base.html" %}
+
+{% block container %}
+<a href="{% url 'aluno-new' %}" class="btn btn-success mb-5">Criar novo</a>
+<table class="table">
+    <tr>
+        <thead class="thead-light">
+            <tr>
+                <th scope="col">Nome</th>
+                <th scope="col">E-mail</th>
+                <th scope="col">Saldo</th>
+                <th scope="col">Editar</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for aluno in alunos %}
+            <tr>
+                <td>{{aluno.nome}}</td>
+                <td>{{aluno.email}}</td>
+                <td>{{aluno.saldo}}</td>
+                <td class="d-flex flex-row justify-content-between">
+                    <a href="{% url 'aluno-details' aluno.pk %}">Detalhes</a>
+                    <a href="{% url 'aluno-update' aluno.pk %}">Editar</a>
+                    <a href="{% url 'aluno-delete' aluno.pk %}">Apagar</a>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+</table>
+{% if is_paginated %}
+    {% include "pagination.html" %}
+{% endif %}
+
+{% endblock %}

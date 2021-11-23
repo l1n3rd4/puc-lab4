@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+{% block container %}
+
+<div class="card">
+    <div class="card-header">
+        <h5 class="card-title">Detalhes da empresa #{{empresa.id}}</h5>
+    </div>
+    <div class="card-body">
+    <dl class="row">
+      <dt class="col-sm-3">Nome</dt>
+      <dd class="col-sm-9">{{ empresa.nome }}</dd>
+    </dl>
+
+    </div>
+</div>
+
+{% endblock %}

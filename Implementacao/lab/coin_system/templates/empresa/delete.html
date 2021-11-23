@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+{% block container %}
+<div class="card">
+    <div class="card-header">
+        <h5 class="card-title">Deletar Empresa #{{object.id}}</h5>
+    </div>
+    <div class="card-body">
+        <form method="post">
+            {% csrf_token %}
+            <div class="alert alert-warning" role="alert">
+                Você tem certeza de que quer deletar <strong>{{ object.nome }}</strong>? Todas as vantagens associadas a ela também serão apagadas
+            </div>
+            <button type="submit" class="btn btn-danger">Deletar</button>
+        </form>
+    </div>
+</div>
+{% endblock %}

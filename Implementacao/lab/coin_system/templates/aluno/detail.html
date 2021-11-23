@@ -1,0 +1,31 @@
+{% extends "base.html" %}
+{% block container %}
+
+<div class="card">
+    <div class="card-header">
+        <h5 class="card-title">Detalhes do Aluno #{{aluno.id}}</h5>
+    </div>
+    <div class="card-body">
+    <dl class="row">
+      <dt class="col-sm-3">Nome</dt>
+      <dd class="col-sm-9">{{ aluno.nome }}</dd>
+      <dt class="col-sm-3">E-mail</dt>
+      <dd class="col-sm-9">{{ aluno.email }}</dd>
+      <dt class="col-sm-3">CPF</dt>
+      <dd class="col-sm-9">{{ aluno.cpf }}</dd>
+      <dt class="col-sm-3">RG</dt>
+      <dd class="col-sm-9">{{ aluno.rg }}</dd>
+      <dt class="col-sm-3">Endereço</dt>
+      <dd class="col-sm-9">{{ aluno.endereco }}</dd>
+      <dt class="col-sm-3">Instituição de ensino</dt>
+      <dd class="col-sm-9">{{ aluno.instituicao_ensino }}</dd>
+      <dt class="col-sm-3">Curso</dt>
+      <dd class="col-sm-9">{{ aluno.curso }}</dd>
+      <dt class="col-sm-3">Saldo (moedas)</dt>
+      <dd class="col-sm-9">{{ aluno.saldo }}</dd>
+    </dl>
+
+    </div>
+</div>
+
+{% endblock %}

@@ -1,32 +1,38 @@
 from django.db import models
 
 # Create your models here.
-class Alunos:
-    nome = ''
-    email = ''
-    CPF = ''
-    RG = ''
-    endereco = ''
-    instituicaoEnsino = ''
-    curso = ''
+class Aluno(models.Model):
+    nome = models.CharField(max_length=120)
+    email = models.EmailField()
+    cpf = models.CharField(max_length=16)
+    rg = models.CharField(max_length=24)
+    endereco = models.CharField(max_length=240)
+    instituicao_ensino = models.CharField(max_length=80)
+    curso = models.CharField(max_length=80)
+    saldo = models.IntegerField(default=0)
 
     def get_extrato_conta():
         pass
 
-class Professores:
-    nome = ''
-    CPF = ''
-    departamento = ''
-    instituicaoEnsino = ''
+class Professor(models.Model):
+    nome = models.CharField(max_length=120)
+    cpf = models.CharField(max_length=16)
+    departamento = models.CharField(max_length=80)
+    instituicao_ensino = models.CharField(max_length=80)
+    saldo = models.IntegerField(default=0)
 
     def get_extrato_conta():
         pass
     
-class EmpresasParceiras:
-    pass
+class Empresa(models.Model):
+    nome = models.CharField(max_length=120)
+    
+class Vantagem(models.Model):
+    nome = models.CharField(max_length=120)
+    descricao = models.TextField()
+    foto = models.CharField(max_length=360, default='', blank=True, null=True)
+    empresa = models.ForeignKey(Empresa, on_delete=models.CASCADE)
 
-class Moedas:
-    moedas_professores_semestre = 1000
     
 
 # Conta, Saldo, 

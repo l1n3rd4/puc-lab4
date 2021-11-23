@@ -23,4 +23,16 @@ urlpatterns = [
     path('signup', views.signup, name="signup"),
     path('signin', views.signin, name="signin"),
     path('signout', views.signout, name="signout"),
+
+    path('alunos', views.AlunoListView.as_view(), name='aluno-list'),
+    path('aluno/novo', views.AlunoCreateView.as_view(), name='aluno-new'),
+    path('aluno/<int:pk>', views.AlunoDetailView.as_view(), name='aluno-details'),
+    path('aluno/editar/<int:pk>', views.AlunoUpdateView.as_view(), name='aluno-update'),
+    path('aluno/deletar/<int:pk>', views.AlunoDeleteView.as_view(), name='aluno-delete'),
+
+    path('empresas', views.EmpresaListView.as_view(), name='empresa-list'),
+    path('empresa/novo', views.EmpresaCreateView.as_view(), name='empresa-new'),
+    path('empresa/<int:pk>', views.EmpresaDetailView.as_view(), name='empresa-details'),
+    path('empresa/editar/<int:pk>', views.EmpresaUpdateView.as_view(), name='empresa-update'),
+    path('empresa/deletar/<int:pk>', views.EmpresaDeleteView.as_view(), name='empresa-delete')
 ]

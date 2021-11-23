@@ -1,0 +1,30 @@
+{% extends "base.html" %}
+
+{% block container %}
+<a href="{% url 'empresa-new' %}" class="btn btn-success mb-5">Criar nova</a>
+<table class="table">
+    <tr>
+        <thead class="thead-light">
+            <tr>
+                <th scope="col">Nome</th>
+                <th scope="col">Editar</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for empresa in empresas %}
+            <tr>
+                <td>{{empresa.nome}}</td>
+                <td class="d-flex flex-row justify-content-between">
+                    <a href="{% url 'empresa-details' empresa.pk %}">Detalhes</a>
+                    <a href="{% url 'empresa-update' empresa.pk %}">Editar</a>
+                    <a href="{% url 'empresa-delete' empresa.pk %}">Apagar</a>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+</table>
+{% if is_paginated %}
+    {% include "pagination.html" %}
+{% endif %}
+
+{% endblock %}

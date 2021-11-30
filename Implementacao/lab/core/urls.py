@@ -14,25 +14,31 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 from django.contrib import admin
-from django.urls import path
+from django.urls import path, include
 from coin_system import views
+from coin_system.view_classes import aluno, empresa, professor
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('', views.home, name="home"),
-    path('signup', views.signup, name="signup"),
-    path('signin', views.signin, name="signin"),
-    path('signout', views.signout, name="signout"),
+    path('', views.home, name='home'),
+    path('', include('django.contrib.auth.urls')),
+    path('minhas-moedas', views.my_coins, name='minhas-moedas'),
 
-    path('alunos', views.AlunoListView.as_view(), name='aluno-list'),
-    path('aluno/novo', views.AlunoCreateView.as_view(), name='aluno-new'),
-    path('aluno/<int:pk>', views.AlunoDetailView.as_view(), name='aluno-details'),
-    path('aluno/editar/<int:pk>', views.AlunoUpdateView.as_view(), name='aluno-update'),
-    path('aluno/deletar/<int:pk>', views.AlunoDeleteView.as_view(), name='aluno-delete'),
+    path('alunos', aluno.AlunoListView.as_view(), name='aluno-list'),
+    path('aluno/novo', aluno.AlunoCreateView.as_view(), name='aluno-new'),
+    path('aluno/<int:pk>', aluno.AlunoDetailView.as_view(), name='aluno-details'),
+    path('aluno/editar/<int:pk>', aluno.AlunoUpdateView.as_view(), name='aluno-update'),
+    path('aluno/deletar/<int:pk>', aluno.AlunoDeleteView.as_view(), name='aluno-delete'),
 
-    path('empresas', views.EmpresaListView.as_view(), name='empresa-list'),
-    path('empresa/novo', views.EmpresaCreateView.as_view(), name='empresa-new'),
-    path('empresa/<int:pk>', views.EmpresaDetailView.as_view(), name='empresa-details'),
-    path('empresa/editar/<int:pk>', views.EmpresaUpdateView.as_view(), name='empresa-update'),
-    path('empresa/deletar/<int:pk>', views.EmpresaDeleteView.as_view(), name='empresa-delete')
+    path('empresas', empresa.EmpresaListView.as_view(), name='empresa-list'),
+    path('empresa/novo', empresa.EmpresaCreateView.as_view(), name='empresa-new'),
+    path('empresa/<int:pk>', empresa.EmpresaDetailView.as_view(), name='empresa-details'),
+    path('empresa/editar/<int:pk>', empresa.EmpresaUpdateView.as_view(), name='empresa-update'),
+    path('empresa/deletar/<int:pk>', empresa.EmpresaDeleteView.as_view(), name='empresa-delete'),
+
+    path('professores', professor.ProfessorListView.as_view(), name='professor-list'),
+    path('professor/novo', professor.ProfessorCreateView.as_view(), name='professor-new'),
+    path('professor/<int:pk>', professor.ProfessorDetailView.as_view(), name='professor-details'),
+    path('professor/editar/<int:pk>', professor.ProfessorUpdateView.as_view(), name='professor-update'),
+    path('professor/deletar/<int:pk>', professor.ProfessorDeleteView.as_view(), name='professor-delete')
 ]

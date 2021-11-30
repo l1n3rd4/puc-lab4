@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+{% block container %}
+
+<div class="card">
+    <div class="card-header">
+        <h5 class="card-title">Detalhes do Professor #{{professor.id}}</h5>
+    </div>
+    <div class="card-body">
+    <dl class="row">
+      <dt class="col-sm-3">Nome</dt>
+      <dd class="col-sm-9">{{ professor.nome }}</dd>
+      <dt class="col-sm-3">CPF</dt>
+      <dd class="col-sm-9">{{ professor.cpf }}</dd>
+      <dt class="col-sm-3">Departamento</dt>
+      <dd class="col-sm-9">{{ professor.departamento }}</dd>
+      <dt class="col-sm-3">Instituição de ensino</dt>
+      <dd class="col-sm-9">{{ professor.instituicao_ensino }}</dd>
+      <dt class="col-sm-3">Saldo (moedas)</dt>
+      <dd class="col-sm-9">{{ professor.saldo }}</dd>
+    </dl>
+
+    </div>
+</div>
+
+{% endblock %}

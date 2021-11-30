@@ -1,7 +1,9 @@
 from django.db import models
+from django.contrib.auth.models import User
 
 # Create your models here.
 class Aluno(models.Model):
+    user = models.OneToOneField(User, on_delete=models.CASCADE, blank=True, null=True)
     nome = models.CharField(max_length=120)
     email = models.EmailField()
     cpf = models.CharField(max_length=16)
@@ -15,6 +17,7 @@ class Aluno(models.Model):
         pass
 
 class Professor(models.Model):
+    user = models.OneToOneField(User, on_delete=models.CASCADE, blank=True, null=True)
     nome = models.CharField(max_length=120)
     cpf = models.CharField(max_length=16)
     departamento = models.CharField(max_length=80)

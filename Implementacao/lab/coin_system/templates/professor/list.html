@@ -1,0 +1,34 @@
+{% extends "base.html" %}
+
+{% block container %}
+<a href="{% url 'professor-new' %}" class="btn btn-success mb-5">Criar novo</a>
+<table class="table">
+    <tr>
+        <thead class="thead-light">
+            <tr>
+                <th scope="col">Nome</th>
+                <th scope="col">Departamento</th>
+                <th scope="col">Saldo</th>
+                <th scope="col">Editar</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for professor in professores %}
+            <tr>
+                <td>{{professor.nome}}</td>
+                <td>{{professor.departamento}}</td>
+                <td>{{professor.saldo}}</td>
+                <td class="d-flex flex-row justify-content-between">
+                    <a href="{% url 'professor-details' professor.pk %}">Detalhes</a>
+                    <a href="{% url 'professor-update' professor.pk %}">Editar</a>
+                    <a href="{% url 'professor-delete' professor.pk %}">Apagar</a>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+</table>
+{% if is_paginated %}
+    {% include "pagination.html" %}
+{% endif %}
+
+{% endblock %}

@@ -16,13 +16,14 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path, include
 from coin_system import views
-from coin_system.view_classes import aluno, empresa, professor
+from coin_system.view_classes import aluno, empresa, professor, vantagem
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', views.home, name='home'),
     path('', include('django.contrib.auth.urls')),
     path('minhas-moedas', views.my_coins, name='minhas-moedas'),
+    path('trocar-moedas', views.exchange_coins, name='trocar-moedas'),
 
     path('alunos', aluno.AlunoListView.as_view(), name='aluno-list'),
     path('aluno/novo', aluno.AlunoCreateView.as_view(), name='aluno-new'),
@@ -35,6 +36,12 @@ urlpatterns = [
     path('empresa/<int:pk>', empresa.EmpresaDetailView.as_view(), name='empresa-details'),
     path('empresa/editar/<int:pk>', empresa.EmpresaUpdateView.as_view(), name='empresa-update'),
     path('empresa/deletar/<int:pk>', empresa.EmpresaDeleteView.as_view(), name='empresa-delete'),
+
+    path('vantagens', vantagem.VantagemListView.as_view(), name='vantagem-list'),
+    path('vantagem/novo', vantagem.VantagemCreateView.as_view(), name='vantagem-new'),
+    path('vantagem/<int:pk>', vantagem.VantagemDetailView.as_view(), name='vantagem-details'),
+    path('vantagem/editar/<int:pk>', vantagem.VantagemUpdateView.as_view(), name='vantagem-update'),
+    path('vantagem/deletar/<int:pk>', vantagem.VantagemDeleteView.as_view(), name='vantagem-delete'),
 
     path('professores', professor.ProfessorListView.as_view(), name='professor-list'),
     path('professor/novo', professor.ProfessorCreateView.as_view(), name='professor-new'),

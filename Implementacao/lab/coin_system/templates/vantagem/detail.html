@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+{% block container %}
+
+<div class="card">
+    <div class="card-header">
+        <h5 class="card-title">Detalhes da vantagem #{{vantagem.id}}</h5>
+    </div>
+    <div class="card-body">
+    <dl class="row">
+      <dt class="col-sm-3">Nome</dt>
+      <dd class="col-sm-9">{{ vantagem.nome }}</dd>
+      <dt class="col-sm-3">Descrição</dt>
+      <dd class="col-sm-9">{{ vantagem.descricao }}</dd>
+      <dt class="col-sm-3">Empresa</dt>
+      <dd class="col-sm-9">{{ vantagem.empresa.nome }}</dd>
+      <dt class="col-sm-3">Valor</dt>
+      <dd class="col-sm-9">{{ vantagem.valor }} moedas</dd>
+    </dl>
+
+    </div>
+</div>
+
+{% endblock %}

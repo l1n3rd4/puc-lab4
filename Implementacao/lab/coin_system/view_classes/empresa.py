@@ -47,7 +47,7 @@ class EmpresaUpdateView(UpdateView):
     fields = ('nome',)
 
     def get_success_url(self):
-        return reverse_lazy('aluno-detail', kwargs={'pk': self.object.id})
+        return reverse_lazy('empresa-detail', kwargs={'pk': self.object.id})
 
 class EmpresaDeleteView(DeleteView):
     model = Empresa

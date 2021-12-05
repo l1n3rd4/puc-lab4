@@ -1,0 +1,34 @@
+{% extends "base.html" %}
+
+{% block container %}
+<a href="{% url 'vantagem-new' %}" class="btn btn-success mb-5">Criar nova</a>
+<table class="table">
+    <tr>
+        <thead class="thead-light">
+            <tr>
+                <th scope="col">Nome</th>
+                <th scope="col">Empresa</th>
+                <th scope="col">Valor</th>
+                <th scope="col">Editar</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for vantagem in vantagens %}
+            <tr>
+                <td>{{vantagem.nome}}</td>
+                <td>{{vantagem.empresa.nome}}</td>
+                <td>{{vantagem.valor}} moedas</td>
+                <td class="d-flex flex-row justify-content-between">
+                    <a href="{% url 'vantagem-details' vantagem.pk %}">Detalhes</a>
+                    <a href="{% url 'vantagem-update' vantagem.pk %}">Editar</a>
+                    <a href="{% url 'vantagem-delete' vantagem.pk %}">Apagar</a>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+</table>
+{% if is_paginated %}
+    {% include "pagination.html" %}
+{% endif %}
+
+{% endblock %}

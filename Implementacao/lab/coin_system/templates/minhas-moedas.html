@@ -10,6 +10,55 @@
     <div class="alert alert-primary my-3 text-center" role="alert">
       Meu {% if updated %}novo {% endif %}saldo: <strong>{{ saldo }}</strong> moedas
     </div>
+
+  <table class="table my-4">
+    <h3 class="text-center">Transações</h3>
+    <thead class="thead-light">
+      <tr>
+        {% if request.user.professor %}
+          <th scope="col">Destinatário/Remetente</th>
+        {% endif %}
+        {% if request.user.aluno %}
+          <th scope="col">Vantagem/Remetente</th>
+        {% endif %}
+        <th scope="col">Valor</th>
+        <th scope="col">Data</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for transacao in transaction_list %}
+      <tr>
+        {% if request.user.professor and transacao.aluno %}
+          <td>{{transacao.aluno.nome}}</td>
+        {% elif request.user.professor %}
+          <td>Administrador</td>
+        {% endif %}
+
+        {% if request.user.aluno and transacao.vantagem %}
+          <td>{{transacao.vantagem.nome}}</td>
+        {% elif request.user.aluno %}
+          <td>Prof. {{transacao.professor.nome}}</td>
+        {% endif %}
+
+
+        {% if request.user.professor and transacao.aluno %}
+          <td>-{{transacao.valor}} moedas</td>
+        {% elif request.user.professor %}
+          <td>+{{transacao.valor}} moedas</td>
+        {% endif %}
+
+        {% if request.user.aluno and transacao.vantagem %}
+          <td>-{{transacao.valor}} moedas</td>
+        {% elif request.user.aluno %}
+          <td>+{{transacao.valor}} moedas</td>
+        {% endif %}
+
+
+        <td>{{transacao.date|date:'d/m/Y'}}</td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
     
 
     {% if request.user.professor %}
@@ -30,6 +79,25 @@
             </select>
           </div>
           <button type="submit" class="btn btn-success">Salvar</button>
+        </form>
+      </div>
+    {% endif %}
+    
+
+    {% if request.user.aluno %}
+      <div>
+        <form action="{% url 'trocar-moedas' %}" method="POST" class="d-flex flex-column align-items-center w-100 px-3 mb-3">
+          <h3>Trocar moedas</h3>
+          {% csrf_token %}
+          <div class="w-100 d-flex flex-column align-items-center my-4">
+            <label for="vantagem">Vantagem:</label>
+            <select name="vantagem" class="form-control" required>
+              {% for vantagem in vantagem_list %}
+                <option value="{{vantagem.id}}" {% if vantagem.valor > saldo %}disabled{% endif %}>{{vantagem.nome}} - {{vantagem.valor}} moedas</option>
+              {% endfor %}
+            </select>
+          </div>
+          <button type="submit" class="btn btn-success">Trocar</button>
         </form>
       </div>
     {% endif %}

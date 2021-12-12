@@ -1,0 +1,36 @@
+{% extends "base.html" %}
+
+{% block container %}
+  <div class="card">
+    <div class="card-header">
+      Cadastro
+    </div>
+    <div class="card-body">
+      {% if error %}
+      <div class="alert alert-danger my-3 text-center" role="alert">
+        Erro ao criar usuário: {{error}}
+      </div>
+      {% elif success %}
+      <div class="alert alert-success my-3 text-center" role="alert">
+        Usuário criado com sucesso. <a href="{% url 'login' %}">Ir para login</a>
+      </div>
+      {% endif %}
+      <form action="" method="POST" class="d-flex flex-column">
+        {% csrf_token %}
+        <input class="form-control my-2" type="text" name="user" placeholder="Nome de usuário" required>
+        <input class="form-control my-2" type="password" name="password" placeholder="Senha" required>
+        <input class="form-control my-2" type="email" name="email" placeholder="Email" required>
+        <input class="form-control mt-2 mb-5" type="text" name="nome" placeholder="Nome" required>
+
+        {% if is_aluno %}
+          <input class="form-control my-2" type="text" name="cpf" placeholder="CPF" required>
+          <input class="form-control my-2" type="text" name="rg" placeholder="RG" required>
+          <input class="form-control my-2" type="text" name="endereco" placeholder="Endereço" required>
+          <input class="form-control my-2" type="text" name="instituicao" placeholder="Instituição de ensino" required>
+          <input class="form-control my-2" type="text" name="curso" placeholder="Curso" required>
+        {% endif %}
+        <button type="submit" class="button btn btn-success mt-5">Cadastrar</button>
+      </form>
+    </div>
+  </div>
+{% endblock %}

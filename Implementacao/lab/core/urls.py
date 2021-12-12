@@ -24,6 +24,9 @@ urlpatterns = [
     path('', include('django.contrib.auth.urls')),
     path('minhas-moedas', views.my_coins, name='minhas-moedas'),
     path('trocar-moedas', views.exchange_coins, name='trocar-moedas'),
+    path('cadastrar-vantagem', views.empresa_create_vantagem, name='cadastrar-vantagem'),
+    path('minhas-vantagens', views.empresa_minhas_vantagens, name='minhas-vantagens'),
+    path('cadastro/<slug:registration_type>', views.cadastro, name='cadastro'),
 
     path('alunos', aluno.AlunoListView.as_view(), name='aluno-list'),
     path('aluno/novo', aluno.AlunoCreateView.as_view(), name='aluno-new'),

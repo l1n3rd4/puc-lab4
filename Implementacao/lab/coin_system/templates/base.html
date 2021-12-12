@@ -45,6 +45,22 @@
                 <a class="nav-link" href="{% url 'minhas-moedas' %}">Minhas moedas</a>
               </li>
             {% endif %}
+            {% if request.user.aluno %}
+              <li class="nav-item active">
+                <a class="nav-link" href="{% url 'trocar-moedas' %}">Trocar moedas</a>
+              </li>
+              <li class="nav-item active">
+                <a class="nav-link" href="{% url 'vantagem-list' %}">Vantagens</a>
+              </li>
+            {% endif %}
+            {% if request.user.empresa %}
+              <li class="nav-item active">
+                <a class="nav-link" href="{% url 'cadastrar-vantagem' %}">Cadastrar vantagem</a>
+              </li>
+              <li class="nav-item active">
+                <a class="nav-link" href="{% url 'minhas-vantagens' %}">Minhas vantagens</a>
+              </li>
+            {% endif %}
             <li class="nav-item active">
               <a class="nav-link" href="{% url 'logout' %}">Logout</a>
             </li>

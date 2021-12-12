@@ -1,0 +1,27 @@
+{% extends "base.html" %}
+
+{% block container %}
+  <div class="card">
+    <div class="alert alert-primary my-3 text-center" role="alert">
+      Meu saldo: <strong>{{ saldo }}</strong> moedas
+    </div>
+
+    {% if request.user.aluno %}
+      <div>
+        <form action="{% url 'trocar-moedas' %}" method="POST" class="d-flex flex-column align-items-center w-100 px-3 mb-3">
+          <h3>Trocar moedas</h3>
+          {% csrf_token %}
+          <div class="w-100 d-flex flex-column align-items-center my-4">
+            <label for="vantagem">Vantagem:</label>
+            <select name="vantagem" class="form-control" required>
+              {% for vantagem in vantagem_list %}
+                <option value="{{vantagem.id}}" {% if vantagem.valor > saldo %}disabled{% endif %}>{{vantagem.nome}} - {{vantagem.valor}} moedas</option>
+              {% endfor %}
+            </select>
+          </div>
+          <button type="submit" class="btn btn-success">Trocar</button>
+        </form>
+      </div>
+    {% endif %}
+  </div>
+{% endblock %}

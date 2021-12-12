@@ -24,6 +24,7 @@ class Professor(models.Model):
 
 
 class Empresa(models.Model):
+    user = models.OneToOneField(User, on_delete=models.CASCADE, blank=True, null=True)
     nome = models.CharField(max_length=120)
 
     def __str__(self):

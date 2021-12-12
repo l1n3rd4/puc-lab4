@@ -1,0 +1,24 @@
+{% extends "base.html" %}
+
+{% block container %}
+  <div class="card">
+    <div class="card-header">
+      Criar vantagem
+    </div>
+    <div class="card-body">
+      {% if created %}
+      <div class="alert alert-success my-3 text-center" role="alert">
+        Vantagem cadastrada com sucesso
+      </div>
+      {% endif %}
+      <form action="" method="POST" class="d-flex flex-column">
+        {% csrf_token %}
+        <input class="form-control my-2" type="text" name="nome" placeholder="Nome" required>
+        <textarea class="form-control my-2" name="descricao" rows="4" placeholder="Descrição" required></textarea>
+        <input class="form-control my-2" type="number" name="valor" placeholder="Valor" required>
+
+        <button type="submit" class="button btn btn-success mt-5">Cadastrar</button>
+      </form>
+    </div>
+  </div>
+{% endblock %}

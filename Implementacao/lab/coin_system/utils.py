@@ -1,4 +1,6 @@
-from coin_system.models import Aluno, Transacao, Vantagem
+from coin_system.models import Aluno, Transacao, Vantagem, Empresa
+from django.contrib.auth.models import User
+from django.contrib.auth.hashers import make_password
 
 def get_transaction_history(subject):
   subject_type = type(subject).__name__
@@ -70,3 +72,53 @@ def process_coin_exchange(user, payload):
       'confirmation': n_t.id
     }
 
+
+def register_user(payload, registration_type):
+  if User.objects.filter(username=payload['user']).exists():
+    return {
+      'error': 'Usuário já existe'
+    }
+  
+  new_user = User(
+    username = payload['user'],
+    first_name = payload['nome'],
+    email = payload['email'],
+    password = make_password(payload['password']),
+    is_active = True
+  )
+  new_user.save()
+
+  if registration_type == 'aluno':
+    new_object = Aluno(
+      user = new_user,
+      nome = payload['nome'],
+      email = payload['email'],
+      cpf = payload['cpf'],
+      rg = payload['rg'],
+      endereco = payload['endereco'],
+      instituicao_ensino = payload['instituicao'],
+      curso = payload['curso']
+    )
+  else:
+    new_object = Empresa(
+      user = new_user,
+      nome = payload['nome']
+    )
+  new_object.save()
+
+  return {
+    'success': True
+  }
+
+
+def create_empresa_vantagem(payload, empresa):
+  new_vant = Vantagem(
+    nome = payload['nome'],
+    descricao = payload['descricao'],
+    valor = int(payload['valor']),
+    empresa = empresa
+  )
+  new_vant.save()
+  return {
+    'created': True
+  }

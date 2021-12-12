@@ -1,7 +1,9 @@
 {% extends "base.html" %}
 
 {% block container %}
-<a href="{% url 'vantagem-new' %}" class="btn btn-success mb-5">Criar nova</a>
+{% if request.user.is_superuser %}
+    <a href="{% url 'vantagem-new' %}" class="btn btn-success mb-5">Criar nova</a>
+{% endif %}
 <table class="table">
     <tr>
         <thead class="thead-light">
@@ -9,7 +11,9 @@
                 <th scope="col">Nome</th>
                 <th scope="col">Empresa</th>
                 <th scope="col">Valor</th>
-                <th scope="col">Editar</th>
+                {% if request.user.is_superuser or request.user.empresa %}
+                    <th scope="col">Editar</th>
+                {% endif %}
             </tr>
         </thead>
         <tbody>
@@ -18,11 +22,15 @@
                 <td>{{vantagem.nome}}</td>
                 <td>{{vantagem.empresa.nome}}</td>
                 <td>{{vantagem.valor}} moedas</td>
-                <td class="d-flex flex-row justify-content-between">
-                    <a href="{% url 'vantagem-details' vantagem.pk %}">Detalhes</a>
-                    <a href="{% url 'vantagem-update' vantagem.pk %}">Editar</a>
-                    <a href="{% url 'vantagem-delete' vantagem.pk %}">Apagar</a>
-                </td>
+                {% if request.user.is_superuser or request.user.empresa %}
+                    <td class="d-flex flex-row justify-content-between">
+                        <a href="{% url 'vantagem-details' vantagem.pk %}">Detalhes</a>
+                        {% if request.user.is_superuser %}
+                            <a href="{% url 'vantagem-update' vantagem.pk %}">Editar</a>
+                        {% endif %}
+                        <a href="{% url 'vantagem-delete' vantagem.pk %}">Apagar</a>
+                    </td>
+                {% endif %}
             </tr>
             {% endfor %}
         </tbody>
